@@ -14,3 +14,6 @@ eureka:
     service-url:
       defaultZone: http://127.0.0.1:8761/eureka
 
+greeting:
+  message: Welcome to sample e-commerce
+
