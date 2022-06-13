@@ -11,6 +11,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import javax.persistence.GeneratedValue;
+
 @RestController
 @RequestMapping("/")
 public class UserController {
@@ -23,7 +25,12 @@ public class UserController {
         this.userService = userService;
     }
 
-    @PostMapping("/users")
+    @GetMapping("/user-service/check_test")
+    public String status() {
+        return String.format("It's working in User Service ont PORT : %s", env.getProperty("local.server.port"));
+    }
+
+    @PostMapping("/user-service/users")
     public ResponseEntity createUser(@RequestBody User user) {
         ModelMapper mapper = new ModelMapper();
         mapper.getConfiguration().setMatchingStrategy(MatchingStrategies.STRICT);
