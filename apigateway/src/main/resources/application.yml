@@ -24,6 +24,10 @@ spring:
           uri: lb://APPLICATION-CATALOG
           predicates:
             - Path=/application-catalog/**
+        - id: application-order
+          uri: lb://APPLICATION-ORDER
+          predicates:
+            - Path=/application-order/**
           filters:
             - CustomFilter
 
