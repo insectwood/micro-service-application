@@ -19,7 +19,28 @@ spring:
         - id: application-user
           uri: lb://APPLICATION-USER
           predicates:
+            - Path=/application-user/login
+            - Method=POST
+          filters:
+            - RemoveRequestHeader=Cookie
+            - RewritePath=/application-user/(?<segment>.*), /$\{segment}
+        - id: application-user
+          uri: lb://APPLICATION-USER
+          predicates:
+            - Path=/application-user/users
+            - Method=POST
+          filters:
+            - RemoveRequestHeader=Cookie
+            - RewritePath=/application-user/(?<segment>.*), /$\{segment}
+        - id: application-user
+          uri: lb://APPLICATION-USER
+          predicates:
             - Path=/application-user/**
+             - Method=GET
+          filters:
+            - RemoveRequestHeader=Cookie
+            - RewritePath=/application-user/(?<segment>.*), /$\{segment}
+
         - id: application-catalog
           uri: lb://APPLICATION-CATALOG
           predicates:
