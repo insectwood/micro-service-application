@@ -10,18 +10,8 @@ import org.springframework.security.config.annotation.web.configuration.EnableWe
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 
-@Configuration
 @EnableWebSecurity
 public class SecurityConfig {
-
-    private Environment env;
-    private UserService userService;
-
-    @Autowired
-    public SecurityConfig(Environment env, UserService userService) {
-        this.env = env;
-        this.userService = userService;
-    }
 
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
@@ -31,14 +21,18 @@ public class SecurityConfig {
 
         http.authorizeRequests().antMatchers("/actuator/**").permitAll();
         http.authorizeRequests().antMatchers("/check_test/**").permitAll();
-        http.authorizeRequests().antMatchers("/**")
-                .hasIpAddress(env.getProperty("gateway.ip"));
+        http.authorizeRequests().antMatchers("/**").permitAll();
+//                .hasIpAddress(env.getProperty("gateway.ip"));
 //                .and()
 //                .addFilter(getAuthenticationFilter());
 
         return http.build();
     }
 
+//    @Bean
+//    public BCryptPasswordEncoder passwordEncoder() {
+//        return new BCryptPasswordEncoder();
+//    }
 
 //    @Bean
 //    public WebSecurityCustomizer webSecurityCustomizer() {
@@ -56,12 +50,6 @@ public class SecurityConfig {
 //    public AuthenticationManager authenticationManager(AuthenticationConfiguration configuration) throws Exception {
 //        return configuration.getAuthenticationManager();
 //    }
-
-
-    @Bean
-    public BCryptPasswordEncoder passwordEncoder() {
-        return new BCryptPasswordEncoder();
-    }
 
 //    protected void configure(AuthenticationManagerBuilder auth) throws Exception {
 //        auth.userDetailsService(userService).passwordEncoder(passwordEncoder());
