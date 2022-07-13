@@ -66,10 +66,6 @@ spring:
             - RemoveRequestHeader=Cookie
             - RewritePath=/application-user/(?<segment>.*), /$\{segment}
 
-
-token:
-  secret: user_token
-
 management:
   endpoints:
     web:

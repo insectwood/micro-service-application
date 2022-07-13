@@ -1,0 +1,13 @@
+spring:
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://localhost:3306/msa
+    username: root
+    password: '{cipher}AQAbd9/8YZXXNIKICRD/YZ3QijaXCmzp46Yz0VFAKEHGJzyBlrJ0Be5NSno0XFpdzpwu50SJaJG0+2Hsc/9WhK/k3dWmdwdXU4xck72JjuOkxKWoow0IrHWQ3DRRnTRP8PC7lk+GaBqcBvzX0/ViBidqTmUiXNYy25/yXHSpvUw8IlhxoMx4dfIHw6Vc6Dj2BtkV3MohrjkpdARh0qg6P1kgs2rBXrwWBjO6foraFpp9ZVWpSyjm/GmmQ8UDwXYIPqR0ToOy1LxheTYLhAuS1v8mDo1cmEJQDwRkZENvA9IjgKkcgwuS3eFF36wrMhJwemIE/5/tPLnJgld6efm3iOQL0Ytct+MwRgr/QyoTRPvL7PhdiFC822gY2h2RxGb0o8I='
+
+token:
+  expiration_time: 86400000
+  secret: user_token_native_application_user_default
+
+gateway:
+  ip: 192.168.0.8
