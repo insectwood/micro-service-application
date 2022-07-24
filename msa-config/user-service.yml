@@ -11,3 +11,8 @@ token:
 
 gateway:
   ip: 192.168.0.8
+
+order_service:
+  url: http://APPLICATION-ORDER/application-order/%s/orders
+  exception:
+    order_empty: order is empty

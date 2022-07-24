@@ -1,37 +1,51 @@
 package com.example.user.service;
 
+import com.example.user.client.OrderClient;
 import com.example.user.dto.UserDto;
 import com.example.user.jpa.UserEntity;
 import com.example.user.jpa.UserRepository;
 import com.example.user.vo.ResponseOrder;
+import feign.FeignException;
+import lombok.extern.slf4j.Slf4j;
 import org.modelmapper.ModelMapper;
 import org.modelmapper.convention.MatchingStrategies;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.ParameterizedTypeReference;
 import org.springframework.core.env.Environment;
+import org.springframework.http.HttpMethod;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.ui.ModelMap;
+import org.springframework.web.client.RestTemplate;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
 @Service
+@Slf4j
 public class UserServiceImpl implements UserService {
     UserRepository userRepository;
     BCryptPasswordEncoder passwordEncoder;
     Environment env;
+    RestTemplate restTemplate;
+    OrderClient orderClient;
 
     @Autowired
     public UserServiceImpl(UserRepository userRepository,
                            BCryptPasswordEncoder passwordEncoder,
-                           Environment env) {
+                           Environment env,
+                           RestTemplate restTemplate,
+                           OrderClient orderClient) {
         this.userRepository = userRepository;
         this.passwordEncoder = passwordEncoder;
         this.env = env;
+        this.restTemplate = restTemplate;
+        this.orderClient = orderClient;
     }
 
     @Override
@@ -56,8 +70,8 @@ public class UserServiceImpl implements UserService {
 
         UserDto userDto = new ModelMapper().map(userEntity, UserDto.class);
 
-        List<ResponseOrder> orders = new ArrayList<>();
-        userDto.setOrders(orders);
+        List<ResponseOrder> orderList = orderClient.getOrders(userId);
+        userDto.setOrders(orderList);
 
         return userDto;
     }
