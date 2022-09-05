@@ -66,8 +66,17 @@ spring:
             - RemoveRequestHeader=Cookie
             - RewritePath=/application-user/(?<segment>.*), /$\{segment}
 
+        - id: application-order
+          uri: lb://APPLICATION-ORDER
+          predicates:
+            - Path=/application-order/actuator**
+            - Method=GET
+          filters:
+            - RemoveRequestHeader=Cookie
+            - RewritePath=/application-order/(?<segment>.*), /$\{segment}
+
 management:
   endpoints:
     web:
       exposure:
-        include: refresh, health, beans, httptrace, busrefresh
+        include: refresh, health, beans, httptrace, busrefresh, info, metrics, prometheus

@@ -5,6 +5,7 @@ import com.example.user.jpa.UserEntity;
 import com.example.user.service.UserService;
 import com.example.user.vo.ResponseUser;
 import com.example.user.vo.User;
+import io.micrometer.core.annotation.Timed;
 import org.modelmapper.ModelMapper;
 import org.modelmapper.convention.MatchingStrategies;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -32,6 +33,7 @@ public class UserController {
     }
 
     @GetMapping("/check_test")
+    @Timed(value="users.status", longTask = true)
     public String status() {
         return String.format("User Application : "
                 + ",port(local.server.port) : "+ env.getProperty("local.server.port")
