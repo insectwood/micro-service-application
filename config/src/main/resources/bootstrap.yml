@@ -1,6 +1,7 @@
 encrypt:
   key-store:
-    location: file:///${user.home}/IdeaProjects/msa/msa-config/keystore/apiEncryptionKey.jks
+    #location: file:///${user.home}/IdeaProjects/msa/msa-config/keystore/apiEncryptionKey.jks
+    location: file:/apiEncryptionKey.jks
     password: test1234
     alias: apiEncryptionKey
 spring:

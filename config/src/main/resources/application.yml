@@ -16,6 +16,8 @@ spring:
           search-locations: file:///${user.home}/IdeaProjects/msa/msa-config
         git:
           uri: https://github.com/insectwood/micro-service-application/msa-config
+          #username: username
+          #password: password
 
 management:
   endpoints:
